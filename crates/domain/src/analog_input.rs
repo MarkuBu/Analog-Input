@@ -14,6 +14,32 @@ pub enum CalibrationState {
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct AnalogInput {
-    pub channel: Channel,
-    pub ranges: HashMap<MeasurementRange, CalibrationState>,
+    channel: Channel,
+    ranges: HashMap<MeasurementRange, CalibrationState>,
+}
+
+impl AnalogInput {
+    pub fn new(
+        channel: Channel,
+        ranges: HashMap<MeasurementRange, CalibrationState>,
+    ) -> Result<Self, AnalogInputError> {
+        if ranges.is_empty() {
+            return Err(AnalogInputError::NoMeasurementRanges);
+        }
+
+        Ok(Self { channel, ranges })
+    }
+
+    pub fn channel(&self) -> Channel {
+        self.channel
+    }
+
+    pub fn ranges(&self) -> &HashMap<MeasurementRange, CalibrationState> {
+        &self.ranges
+    }
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum AnalogInputError {
+    NoMeasurementRanges,
 }

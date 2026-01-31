@@ -3,8 +3,31 @@ use crate::units::*;
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct CalibrationConstants {
-    pub offset: f64,
-    pub slope: f64,
+    offset: f64,
+    slope: f64,
+}
+
+impl CalibrationConstants {
+    pub fn new(offset: f64, slope: f64) -> Result<Self, CalibrationError> {
+        if slope == 0.0 {
+            return Err(CalibrationError::ZeroSlope);
+        }
+
+        Ok(Self { offset, slope })
+    }
+
+    pub fn offset(&self) -> f64 {
+        self.offset
+    }
+
+    pub fn slope(&self) -> f64 {
+        self.slope
+    }
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub enum CalibrationError {
+    ZeroSlope,
 }
 
 #[derive(Debug, Clone, PartialEq)]

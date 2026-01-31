@@ -5,3 +5,6 @@ pub mod measurement;
 pub mod measurement_range;
 pub mod raw;
 pub mod units;
+
+#[cfg(test)]
+mod tests;
