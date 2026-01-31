@@ -3,4 +3,10 @@ name = "Analog-Input"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = [
+    "crates/domain"
+]
+
 [dependencies]
+domain = { path = "crates/domain" }
